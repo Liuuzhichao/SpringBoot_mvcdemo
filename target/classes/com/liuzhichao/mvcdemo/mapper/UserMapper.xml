@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mapper的namespace属性可以直接绑定dao接口,不需要写实现类 根据id和方法名进行绑定 -->
+<mapper namespace="com.liuzhichao.mvcdemo.mapper.UserMapper">
+	<insert id="addUser" parameterType="com.liuzhichao.mvcdemo.entity.User">
+		insert into lzc_user(id,name,birthday,address) 
+		values(#{id},#{name},#{birthday},#{address});
+	</insert>
+	
+	<update id="updateUser" parameterType="com.liuzhichao.mvcdemo.entity.User">
+		update lzc_user set name=#{name}, birthday=#{birthday}, address=#{address} 
+		where id=#{id};
+	</update>
+	
+	<delete id="deleteUser" parameterType="int">
+		delete from lzc_user where id=#{id};
+	</delete>
+	
+	<!-- 一对一映射,用户和车辆 -->
+	<!-- column是查询结果的名字,并不一定是表中的列名,所以不需要将表中的列名全部写出(比如外键) -->
+	<!-- property是持久化类中的属性,写resultMap映射关系时,不要考虑表中的存储结构 -->
+	<resultMap type="com.liuzhichao.mvcdemo.entity.Car" id="selectCarAndPerson">
+		<id column="cid" property="cid"/>
+		<result column="brand" property="brand"/>
+		<result column="color" property="color"/>
+		<association property="user" javaType="com.liuzhichao.mvcdemo.entity.User">
+			<id column="id" property="id"/>
+			<result column="name" property="name"/>
+			<result column="birthday" property="birthday"/>
+			<result column="address" property="address"/>
+		</association>
+	</resultMap>
+	<select id="selectCarWithPerson" parameterType="int" resultMap="selectCarAndPerson">
+		select c.*, u.* from lzc_car c, lzc_user u where c.uid=u.id and u.id=#{id};
+	</select>
+	
+	<!-- 一对多映射,部门和员工 -->
+	<resultMap type="com.liuzhichao.mvcdemo.entity.Dept" id="selectUsersByDept">
+		<id column="did" property="did"/>
+		<result column="dname" property="dname"/>
+		<collection property="users" ofType="com.liuzhichao.mvcdemo.entity.User">
+			<id column="id" property="id"/>
+			<result column="name" property="name"/>
+			<result column="birthday" property="birthday"/>
+			<result column="address" property="address"/>
+		</collection>
+	</resultMap>
+	<!-- resultType="map" -->
+	<select id="selectUsersByDeptId" resultMap="selectUsersByDept">
+		select d.*, u.* from lzc_dept d, lzc_user u where d.did=#{did};
+	</select>
+
+</mapper>
