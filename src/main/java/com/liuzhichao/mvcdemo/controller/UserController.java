@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -74,7 +75,7 @@ public class UserController {
 		return userService.selectCarWithPerson(id);
 	}
 	
-	@GetMapping("selectUsersByDeptId")
+	@GetMapping("/selectUsersByDeptId")
 	public List<User> selectUsersByDeptId(Integer id) {
 		id = 1001;
 		return userService.selectUsersByDeptId(id);

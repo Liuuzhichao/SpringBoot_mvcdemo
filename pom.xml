@@ -4,7 +4,7 @@
   <artifactId>mvcdemo</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   
-  <parent>
+   <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.4.0.RELEASE</version>
@@ -30,6 +30,12 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.45</version><!-- 删掉版本配置找不到MySQL驱动 -->
 			<scope>runtime</scope>
+		</dependency>
+		
+		<dependency>
+   			<groupId>org.apache.tomcat.embed</groupId>
+   			<artifactId>tomcat-embed-jasper</artifactId>
+   			<scope>provided</scope>
 		</dependency>
         
     </dependencies>
