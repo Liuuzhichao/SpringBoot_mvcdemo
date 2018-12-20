@@ -1,44 +1,58 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.liuzhichao</groupId>
-  <artifactId>mvcdemo</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  
-   <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.4.0.RELEASE</version>
-    </parent>
-    
-    <dependencies>
-    	<!-- Spring boot核心web整合了spring +springMVC+mybatis,web项目引入该依赖-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        
-        <!-- mybatis支持,该以来的版本要和springboot父依赖的版本相协调,负责无法加载该依赖 -->
-        <dependency>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.liuzhichao</groupId>
+	<artifactId>mvcdemo</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.4.0.RELEASE</version>
+	</parent>
+
+	<dependencies>
+		<!-- Spring boot核心web整合了spring +springMVC+mybatis,web项目引入该依赖 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<!-- mybatis支持,该以来的版本要和springboot父依赖的版本相协调,负责无法加载该依赖 -->
+		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
 			<version>1.2.0</version>
 		</dependency>
- 
- 		<!-- MySQL支持 -->
+
+		<!-- MySQL支持 -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.45</version><!-- 删掉版本配置找不到MySQL驱动 -->
 			<scope>runtime</scope>
 		</dependency>
-		
+
+		<!-- jasper是将jsp转化为jvm 能识别的class.java 文件 -->
 		<dependency>
-   			<groupId>org.apache.tomcat.embed</groupId>
-   			<artifactId>tomcat-embed-jasper</artifactId>
-   			<scope>provided</scope>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
 		</dependency>
-        
-    </dependencies>
-    
-    
+
+		<!--支持跳转,springboot推荐使用thymeleaf模板引擎 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
+	</dependencies>
+
+	<properties>
+		<!--指定themleaft版本 -->
+		<thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
+		<thymeleaf-layout-dialect.version>2.0.5</thymeleaf-layout-dialect.version>
+	</properties>
+
 </project>

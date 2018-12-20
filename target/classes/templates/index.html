@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="/js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="/js/restful.js"></script>
+</head>
+<body>
+	<button id="addBtn" name="addBtn" onclick="addUser()">添加</button>
+	<button id="updateBtn" name="updateBtn">修改</button>
+	<button id="deleteBtn" name="deleteBtn">删除</button>
+	<button id="selectBtn" name="selectBtn">查询</button>
+	<div id="showMessage">result:</div>
+</body>
+
+<script type="text/javascript">
+	function addUser() {
+		alert("start");
+		$.ajax({
+			url : "http://127.0.0.1:8080/restful_addUser",
+			type : "post",
+			//增加JSON.stringify,数据库正常
+			//JSON.stringify把JavaScript的值转换为JSON字符串
+			data : JSON.stringify({
+				id : 1001,
+				name : "restful01",
+				birthday : "1991-1-1",
+				address : "bj"
+			}),
+			//dataType : "json", //json-->text会进入success操作,返回数据的格式
+			contentType : "application/json",//传入参数的格式,与data属性对应
+			success : function() {
+				$("#showMessage").text("数据增加成功!");
+			},
+			error : function() {
+				$("#showMessage").text("出错了!!!");
+			}
+		}) 
+		alert("end");
+	}
+	/*前端ajax传递类对象时,JSON.stringify()和contentType要一起使用才可以*/
+</script>
+</html>

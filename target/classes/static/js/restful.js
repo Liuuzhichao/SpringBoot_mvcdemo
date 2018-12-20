@@ -1,9 +1,9 @@
 $("#addBtn").on("click",function(){
 	$.ajax({
-		url : "user/restful_addUser",
+		url : "restful_addUser",
 		type : "post",
 		data : {
-			id : 1100,
+			id : 1001,
 			name : "restful01",
 			birthday : "1991-1-1",
 			address : "bj"

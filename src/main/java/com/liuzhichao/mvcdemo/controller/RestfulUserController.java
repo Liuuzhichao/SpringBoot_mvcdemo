@@ -3,6 +3,7 @@ package com.liuzhichao.mvcdemo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -17,13 +18,14 @@ public class RestfulUserController {
 	
 	@RequestMapping("/showRestfulIndex")
 	public String showRestfulIndex() {
-		return "/index";
+		return "index";
 	}
 	
-	@PostMapping("/restful_addUser")
+	@RequestMapping("/restful_addUser")
+	@ResponseBody
 	//留疑:@requestBody注解
-	public String restful_addUser(User user) {
+	public String restful_addUser(@RequestBody User user) {
 		userService.addUser(user);
-		return "";
+		return "controller_success";
 	}
 }
