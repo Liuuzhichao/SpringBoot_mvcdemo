@@ -21,19 +21,20 @@
 			url : "http://127.0.0.1:8080/restful_addUser",
 			type : "post",
 			//增加JSON.stringify,数据库正常
-			//JSON.stringify把JavaScript的值转换为JSON字符串
+			//JSON.stringify把JavaScript对象转换为JSON字符串
 			data : JSON.stringify({
 				id : 1001,
 				name : "restful01",
 				birthday : "1991-1-1",
 				address : "bj"
 			}),
-			//dataType : "json", //json-->text会进入success操作,返回数据的格式
+			//返回数据的格式,对应controller中的返回类型
+			dataType : "json", //json-->text会进入success操作
 			contentType : "application/json",//传入参数的格式,与data属性对应
-			success : function() {
+			success : function(result) {
 				$("#showMessage").text("数据增加成功!");
 			},
-			error : function() {
+			error : function(result) {
 				$("#showMessage").text("出错了!!!");
 			}
 		}) 

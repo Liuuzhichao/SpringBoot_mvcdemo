@@ -1,4 +1,4 @@
-$("#addBtn").on("click",function(){
+/*$("#addBtn").on("click",function(){
 	$.ajax({
 		url : "restful_addUser",
 		type : "post",
@@ -16,4 +16,4 @@ $("#addBtn").on("click",function(){
 			$("#showMessage").append("数据增加失败!!!");
 		}
 	})
-})
+})*/
