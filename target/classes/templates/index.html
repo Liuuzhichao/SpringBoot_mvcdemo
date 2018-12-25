@@ -10,7 +10,7 @@
 <body>
 	<button id="addBtn" name="addBtn" onclick="addUser()">添加</button>
 	<button id="updateBtn" name="updateBtn" onclick="updateUser()">修改</button>
-	<button id="deleteBtn" name="deleteBtn" onclick="deleteUser()">删除</button>
+	<button id="deleteBtn" name="deleteBtn" onclick="deleteUser1()">删除</button>
 	<button id="selectBtn" name="selectBtn" onclick="selectAll()">查询所有用户</button>
 	<button id="selectUserBtn" name="selectUserBtn" onclick="selectById()">根据id查询</button>
 	<div id="showMessage">result:</div>
@@ -25,7 +25,7 @@
 			url : "/restful_addUser",
 			type : "post",
 			//增加JSON.stringify,数据库正常
-			//JSON.stringify把JavaScript对象转换为JSON字符串
+			//发送至服务器的数据,JSON.stringify把JavaScript对象转换为JSON字符串
 			data : JSON.stringify({
 				id : 1001,
 				name : "restful01",
@@ -57,6 +57,30 @@
 			//url : "/restful_delete/1001",
 			url : "/restful_delete/"+id+"",
 			type : "DELETE",
+			success : function(result) {
+				$("#showMessage").text("数据删除成功!");
+			},
+			error : function(result) {
+				$("#showMessage").text("出错了!!!");
+			}
+		})
+	}
+	
+	/**
+		用data进行数据的传递,不通过URL进行传递参数,适用于增改查等操作
+	*/
+	function deleteUser1() {
+		alert("start");
+		$.ajax({
+			url : "/restful_delete1",
+			//type和method作用相同,method是JQuery1.9之后出现,不支持之前的版本,type支持目前所有的jQuery版本
+			type : "post",
+			//在data中可以设置_method属性,已知取值有put,delete;
+			//_method该属性解决在type中设置"delete",controller无法获得参数的问题
+			data : {
+				id : 1001,
+				_method : "delete"
+			},
 			success : function(result) {
 				$("#showMessage").text("数据删除成功!");
 			},

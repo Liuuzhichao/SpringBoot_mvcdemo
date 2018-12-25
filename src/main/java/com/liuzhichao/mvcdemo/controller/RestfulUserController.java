@@ -55,16 +55,16 @@ public class RestfulUserController {
 		return "{\"result\":\"deleteSuccess\"}";
 	}
 	
-	//测试,delete类型传递错误,post可行
-	/*@ResponseBody
+	/**
+	 * ajax中用data进行参数传递
+	 */
+	@ResponseBody
 	//@RequestMapping(value="/restful_delete1", method=RequestMethod.DELETE)
 	@DeleteMapping("/restful_delete1")
-	public String restful_delete1(@RequestParam("id") Integer id) {
-		//System.out.println("del.....");
+	public String restful_delete1(Integer id) {
 		userService.deleteUser(id);
-		System.out.println("del....end...."+id);
 		return "{\"result\":\"deleteSuccess\"}";
-	}*/
+	}
 	
 	@ResponseBody
 	@GetMapping("/selectAll")
