@@ -16,10 +16,12 @@ public interface UserMapper {
 	
 	public void updateUser(User user);
 	
-	public void deleteUser(int id);
+	public void deleteUser(Integer id);
 	
 	public Car selectCarWithPerson(Integer id);
 	
 	public List<User> selectUsersByDeptId(Integer id);
+	
+	public User selectUserByUserId(Integer id);
 	
 }

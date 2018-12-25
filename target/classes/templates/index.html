@@ -3,22 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="/js/jquery-3.3.1.js"></script>
-<script type="text/javascript" src="/js/restful.js"></script>
+<!-- <script type="text/javascript" src="/js/jquery-3.3.1.js"></script> -->
+<script src=https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js></script>
+<!-- <script type="text/javascript" src="/js/restful.js"></script> -->
 </head>
 <body>
 	<button id="addBtn" name="addBtn" onclick="addUser()">添加</button>
-	<button id="updateBtn" name="updateBtn">修改</button>
-	<button id="deleteBtn" name="deleteBtn">删除</button>
-	<button id="selectBtn" name="selectBtn">查询</button>
+	<button id="updateBtn" name="updateBtn" onclick="updateUser()">修改</button>
+	<button id="deleteBtn" name="deleteBtn" onclick="deleteUser()">删除</button>
+	<button id="selectBtn" name="selectBtn" onclick="selectAll()">查询所有用户</button>
+	<button id="selectUserBtn" name="selectUserBtn" onclick="selectById()">根据id查询</button>
 	<div id="showMessage">result:</div>
 </body>
 
 <script type="text/javascript">
+	
+	//添加用户
 	function addUser() {
 		alert("start");
 		$.ajax({
-			url : "http://127.0.0.1:8080/restful_addUser",
+			url : "/restful_addUser",
 			type : "post",
 			//增加JSON.stringify,数据库正常
 			//JSON.stringify把JavaScript对象转换为JSON字符串
@@ -28,9 +32,10 @@
 				birthday : "1991-1-1",
 				address : "bj"
 			}),
-			//返回数据的格式,对应controller中的返回类型
-			dataType : "json", //json-->text会进入success操作
-			contentType : "application/json",//传入参数的格式,与data属性对应
+			//与其服务器返回数据的类型,对应controller中的返回类型
+			dataType : "json",
+			//发送信息至服务器时,内容编码类型
+			contentType : "application/json",//	传入参数的格式,与data属性对应
 			success : function(result) {
 				$("#showMessage").text("数据增加成功!");
 			},
@@ -41,5 +46,74 @@
 		alert("end");
 	}
 	/*前端ajax传递类对象时,JSON.stringify()和contentType要一起使用才可以*/
+	
+	/**
+		删除用户,在URL中进行参数的传递
+	*/
+	function deleteUser() {
+		alert("start");
+		var id = 1001;
+		$.ajax({
+			//url : "/restful_delete/1001",
+			url : "/restful_delete/"+id+"",
+			type : "DELETE",
+			success : function(result) {
+				$("#showMessage").text("数据删除成功!");
+			},
+			error : function(result) {
+				$("#showMessage").text("出错了!!!");
+			}
+		})
+	}
+	
+	//查询所有用户
+	function selectAll() {
+		alert("start..");
+		$.ajax({
+			url : "/selectAll",
+			type : "get",
+			dataType : "text",
+			//函数参数的返回值是服务器端(controller)中的返回值
+			success : function(result) {
+				$("#showMessage").text(result);
+			}
+		})
+	}
+	
+	//根据id查询用户
+	function selectById() {
+		alert("start..");
+		var id = 1001;
+		$.ajax({
+			url : "/selectById/"+id+"",
+			type : "get",
+			dataType : "text",//json不能显示查询的信息
+			success : function(result) {
+				$("#showMessage").text(result);
+			}
+		})
+	}
+	
+	//更新用户信息
+	function updateUser() {
+		alert("start...");
+		$.ajax({
+			url : "/restful_update",
+			type : "put",
+			//参数用json格式传递,不需要考虑其中date格式的数据类型的转换问题
+			//若用"id=1001&name=restful01&birthday=1991-1-1&address=北京"
+			//格式传递,需要考虑date类型的转换
+			data : JSON.stringify({
+				id : 1001,
+				name : "restful01",
+				birthday : "1991-1-1",
+				address : "beijing"
+			}),
+			contentType : "application/json",
+			success : function(result) {
+				$("#showMessage").text("数据更新成功.");
+			}
+		})
+	}
 </script>
 </html>

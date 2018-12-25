@@ -14,8 +14,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where id=#{id};
 	</update>
 	
-	<delete id="deleteUser" parameterType="int">
-		delete from lzc_user where id=#{id};
+	<delete id="deleteUser" parameterType="Integer">
+	delete from lzc_user where id=#{id};
 	</delete>
 	
 	<!-- 一对一映射,用户和车辆 -->
@@ -49,7 +49,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	<!-- resultType="map" -->
 	<select id="selectUsersByDeptId" resultMap="selectUsersByDept">
-		select d.*, u.* from lzc_dept d, lzc_user u where d.did=#{did};
+		select d.*, u.* from lzc_dept d, lzc_user u where u.id=d.uid and d.did=#{did};
+	</select>
+	
+	<select id="selectUserByUserId" parameterType="Integer" resultType="com.liuzhichao.mvcdemo.entity.User">
+		select * from lzc_user where id=#{id};
 	</select>
 
 </mapper>

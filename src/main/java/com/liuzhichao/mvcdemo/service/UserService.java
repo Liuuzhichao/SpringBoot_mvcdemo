@@ -38,4 +38,8 @@ public class UserService {
 		return userMapper.selectUsersByDeptId(id);
 	}
 	
+	public User selectUserByUserId(Integer id) {
+		return userMapper.selectUserByUserId(id);
+	}
+	
 }
